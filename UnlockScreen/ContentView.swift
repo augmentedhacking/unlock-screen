@@ -11,7 +11,9 @@ import SwiftUI
 struct ContentView: View {
     @State var msgString = "Tap on a Beatle"
 
-    @State var inputPattern = [String]()
+    @State var inputSequence = [String]()
+
+    @State var screenIsLocked = true
     
     var body: some View {
         VStack {
@@ -27,16 +29,14 @@ struct ContentView: View {
                 .border(Color.black, width: 4)
                 .onTapGesture {
                     print("👉 John was tapped")
-
+                    
                     msgString = "You tapped on John"
                     
-                    inputPattern.append("john")
+                    inputSequence.append("john")
                     
-                    if inputPattern.count == 5 {
-                        inputPattern.removeAll()
-                    }
+                    processInputSequence()
                 }
-
+            
             Image("paul")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -45,16 +45,14 @@ struct ContentView: View {
                 .border(Color.black, width: 4)
                 .onTapGesture {
                     print("👉 Paul was tapped")
-
-                    msgString = "You tapped on Paul"
-
-                    inputPattern.append("paul")
                     
-                    if inputPattern.count == 5 {
-                        inputPattern.removeAll()
-                    }
+                    msgString = "You tapped on Paul"
+                    
+                    inputSequence.append("paul")
+                    
+                    processInputSequence()
                 }
-
+            
             Image("ringo")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -63,16 +61,14 @@ struct ContentView: View {
                 .border(Color.black, width: 4)
                 .onTapGesture {
                     print("👉 Ringo was tapped")
-
-                    msgString = "You tapped on Ringo"
-
-                    inputPattern.append("ringo")
                     
-                    if inputPattern.count == 5 {
-                        inputPattern.removeAll()
-                    }
+                    msgString = "You tapped on Ringo"
+                    
+                    inputSequence.append("ringo")
+                    
+                    processInputSequence()
                 }
-
+            
             Image("george")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -81,20 +77,40 @@ struct ContentView: View {
                 .border(Color.black, width: 4)
                 .onTapGesture {
                     print("👉 George was tapped")
-
-                    msgString = "You tapped on George"
-
-                    inputPattern.append("george")
                     
-                    if inputPattern.count == 5 {
-                        inputPattern.removeAll()
-                    }
+                    msgString = "You tapped on George"
+                    
+                    inputSequence.append("george")
+                    
+                    processInputSequence()
                 }
             
-            Text(inputPattern.description)
-                .padding(.top, 40)
+            if screenIsLocked {
+                Text("🔒 Locked")
+                    .font(.system(size: 24))
+                    .padding(.top, 40)
+            } else {
+                Text("🔓 Unlocked")
+                    .font(.system(size: 24))
+                    .padding(.top, 40)
+            }
         }
         .padding()
+    }
+    
+    func processInputSequence() {
+        // Print out input sequence.
+        print("🔑 \(inputSequence)")
+        
+        // TODO: Add logic to check if inputSequence is correct
+        //
+        //
+        // screenIsLocked = false
+
+        // Clear input sequence.
+        if inputSequence.count == 4 {
+            inputSequence.removeAll()
+        }
     }
 }
 
